@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Wee Tidy</string>
 	<key>Builder Version</key>
-	<string>7534.48.3</string>
+	<string>7534.57.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>Pull to Refresh</string>
 	<key>CFBundleIdentifier</key>
@@ -47,5 +47,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Website</key>
+	<string>http://weetidy.com</string>
 </dict>
 </plist>
