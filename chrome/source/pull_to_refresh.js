@@ -1,123 +1,86 @@
-(function(){
- 
-    var special = jQuery.event.special,
-        uid1 = 'D' + (+new Date()),
-        uid2 = 'D' + (+new Date() + 1);
- 
-    special.scrollstop = {
-        latency: 300,
-        setup: function() {
- 
-            var timer,
-                    handler = function(evt) {
- 
-                    var _self = this,
-                        _args = arguments;
- 
-                    if (timer) {
-                        clearTimeout(timer);
-                    }
- 
-                    timer = setTimeout( function(){
- 
-                        timer = null;
-                        evt.type = 'scrollstop';
-                        jQuery.event.handle.apply(_self, _args);
- 
-                    }, special.scrollstop.latency);
- 
-                };
- 
-            jQuery(this).bind('scroll', handler).data(uid2, handler);
- 
-        },
-        teardown: function() {
-            jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
-        }
-    };
- 
-})();
+// Setup the namespace
 
+var pullToReload = {
 
-var pully = {
+	refreshCapable: false,
+	timeStarted: null,
 	
-	position: null,
-	refreshPossible: false,
-	scrollTopBoundary: 0.05,
-	withinTopBoundary: false,
-	origStartingPosition: null,
-	
-	init: function() {
-		var current_url = document.URL;
-		if( current_url.search( 'twitter.com' ) == -1 )
-		{
-			// Inject the div
-			$('body').prepend('<div id="pullToRefresh"><div class="wrap"><span class="icon">&nbsp;</span><div id="pullyText"></div></div></div>');
-			// listener for scrolling
-			$(window).bind('scroll', pully.scrollStart);
-			$(window).bind('scrollstop', pully.scrollStop);
-		}
+	init: function () {
+		// Inject the html onto the page
+		$('body').prepend('<div id="pullToRefresh"><div class="wrap"><span class="icon">&nbsp;</span><div id="pullyText">Pull to refresh</div></div></div>');
+		console.log('pull to reload init');
+		$(window).bind('scroll', pullToReload.monitorScroll);
 	},
 
-	checkScrollTopBoundary: function() {
-		var totalHeight = $('body').height(),
-			positionPercent = null;
-		if (pully.origStartingPosition === null) {
-			pully.origStartingPosition = pully.position;
-		}
-		positionPercent = pully.origStartingPosition / totalHeight;
-		pully.withinTopBoundary = positionPercent <= pully.scrollTopBoundary;
-	},
-	
-	scrollStart: function() {
-		pully.position = $(window).scrollTop();
+	monitorScroll: function () {
 
-		pully.checkScrollTopBoundary();
+		// Scrolling up has occured, but not enough to reload yet
+		if (window.scrollY < 0 && window.scrollY > -40)
+		{
+			// Set the text to pull to refresh
+			$("#pullToRefresh #pullyText").html("Pull to refresh");
 
-		if (pully.position <= -30 && pully.withinTopBoundary)
-		{
-			$('#pullToRefresh #pullyText').text('Release to refresh');
-			$('#pullToRefresh .icon').addClass('release');
-			pully.refreshPossible = true;
+			// Set the position of the pull down bar
+			$("#pullToRefresh").css({ top: Math.abs(window.scrollY) - 40 });
+
+			// Only set the time if we pull up and if the time is null
+			if (pullToReload.refreshCapable === true && pullToReload.timeStarted === null) {
+				// Set a date for scrolling back down the way
+				pullToReload.timeStarted = new Date();
+			}
 		}
-		else if (pully.position <= -5 && pully.refreshPossible === false && pully.withinTopBoundary)
+		
+		// Reload threshold has passed
+		if (window.scrollY <= -40)
 		{
-			pully.slideDownMenu();
+			// Set the text to release
+			$("#pullToRefresh #pullyText").html("Release to refresh");
+
+			// Set the position incase we scrolled too fast
+			$("#pullToRefresh").css({ top: 0 });
+
+			// Set refresh capable
+			pullToReload.refreshCapable = true;
+
+			// Wipe out the time
+			pullToReload.timeStarted = null;
 		}
-		else if (pully.refreshPossible === false)
+		
+		// We're back down below the page, let's see if we can reload
+		if (window.scrollY >= 0 && pullToReload.refreshCapable === true)
 		{
-			pully.slideUpMenu();
+			if (pullToReload.timeStarted !== null) {
+				// Check the time
+				var nowTime = new Date(),
+					diff = nowTime.getTime() - pullToReload.timeStarted.getTime();
+
+				// If we have taken less than a second for the release, reload the page
+				if (diff < 500) {
+					pullToReload.reloadTheWeePageMate();
+				}
+			}
+			else
+			{
+				// We haven't even got to set the time it was that fast, let's reload.
+				pullToReload.reloadTheWeePageMate();
+			}
+
+			// Set the time back to null
+			pullToReload.timeStarted = null;
+		}
+
+		if (window.scrollY >= 0)
+		{
+			// Set the position to completely hidden again
+			$("#pullToRefresh").css({ top: -40 });
 		}
 		
 	},
-	
-	scrollStop: function() {
-		pully.position = $(window).scrollTop();
-		pully.origStartingPosition = null;
-		
-		if (pully.position >= 0 && pully.refreshPossible === true)
-		{
-			$('#pullToRefresh').addClass('fixed');
-			$('#pullToRefresh #pullyText').text('Reloading…');
-			$(window).scrollTop(0);
-			
-			setTimeout(function(){
-				window.location.reload();
-			}, 1000);
-		}
-		
-	},
-	
-	slideDownMenu: function() {
-		$('#pullToRefresh').slideDown(200);
-		$('#pullToRefresh #pullyText').text('Pull to refresh');
-		$('#pullToRefresh .icon').removeClass('release');
-	},
-	
-	slideUpMenu: function() {
-		$('#pullToRefresh').slideUp(200);
+
+	reloadTheWeePageMate: function () {
+		console.log("RELOADING");
 	}
-	
+
 };
 
-$(document).ready(pully.init);
+$(document).ready(pullToReload.init);

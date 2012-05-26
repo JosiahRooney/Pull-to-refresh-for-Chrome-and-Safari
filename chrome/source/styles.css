@@ -1,7 +1,7 @@
 #pullToRefresh{
-	display: none;
+	display: block;
 	position: fixed;
-	top: 0px;
+	top: -40px;
 	left: 0px;
 	height: 40px;
 	width: 40%;
@@ -10,10 +10,10 @@
 	border-bottom-right-radius: 10px;
 	background: -webkit-linear-gradient(bottom, rgba(20,20,20,0.9) 5%, rgba(64,64,64,0.9) 53%);
 	z-index: 10000;
-	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	/*box-shadow: 0 0 10px rgba(0,0,0,0.2);*/
 }
 
-#pullToRefresh.fixed{ display: block !important; }
+/*#pullToRefresh.fixed{ display: block !important; }*/
 
 #pullToRefresh .wrap{
 	width: 180px;
