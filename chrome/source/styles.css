@@ -32,7 +32,7 @@
 }
 
 #pullToRefresh .icon{
-	background: url('chrome-extension://lpjlpldmbikhdbmhhpippfhoifdhbbdh/whiteArrow.png');
+	background: url('chrome-extension://__MSG_@@extension_id__/whiteArrow.png');
 	float: right;
 	display: block;
 	width: 20px;
@@ -63,12 +63,45 @@
   }
 }
 
-#pullToRefresh.fixed .icon{
-	background: url('chrome-extension://lpjlpldmbikhdbmhhpippfhoifdhbbdh/spinner.png');
+#pullToRefreshReloading .icon{
+	background: url('chrome-extension://__MSG_@@extension_id__/spinner.png');
+	float: right;
+	display: block;
+	width: 20px;
+	height: 20px;
+	color: #fff;
+	font-size: 20px;
+	line-height: 20px;
+	text-align: center;
 	text-indent: -10000px;
+	margin: 10px;
 	-webkit-animation-name:             rotate; 
     -webkit-animation-duration:         0.5s; 
     -webkit-animation-iteration-count:  infinite;
     -webkit-transition-timing-function: linear;
 	-webkit-transform: rotate(0deg);
+}
+
+/* Reloading box */
+#pullToRefreshReloading{
+	position: fixed;
+	top: 200px;
+	left: 50%;
+	width: 160px;
+	margin-left: -100px;
+	background: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	padding: 20px;
+	min-height: 40px;
+	z-index: 100010;
+}
+
+#pullToRefreshReloading .text{
+	width: 120px;
+	display: block;
+	color: #fff;
+	line-height: 40px;
+	font-size: 16px;
+	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+	text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
 }

@@ -2,13 +2,17 @@
 
 var pullToReload = {
 
+	// Instance vars
 	refreshCapable: false,
 	timeStarted: null,
+	scrollUpTime: null,
 	
 	init: function () {
+
 		// Inject the html onto the page
-		$('body').prepend('<div id="pullToRefresh"><div class="wrap"><span class="icon">&nbsp;</span><div id="pullyText">Pull to refresh</div></div></div>');
-		console.log('pull to reload init');
+		$('body').prepend('<div id="pullToRefreshReloading"><span class="icon"></span><span class="text">Reloading...</span></div><div id="pullToRefresh"><div class="wrap"><span class="icon">&nbsp;</span><div id="pullyText">Pull to refresh</div></div></div>');
+		
+		// Bind scroll listener
 		$(window).bind('scroll', pullToReload.monitorScroll);
 	},
 
@@ -19,6 +23,7 @@ var pullToReload = {
 		{
 			// Set the text to pull to refresh
 			$("#pullToRefresh #pullyText").html("Pull to refresh");
+			$("#pullToRefresh .icon").removeClass("release");
 
 			// Set the position of the pull down bar
 			$("#pullToRefresh").css({ top: Math.abs(window.scrollY) - 40 });
@@ -33,8 +38,9 @@ var pullToReload = {
 		// Reload threshold has passed
 		if (window.scrollY <= -40)
 		{
-			// Set the text to release
+			// Set the text and icon to release
 			$("#pullToRefresh #pullyText").html("Release to refresh");
+			$("#pullToRefresh .icon").addClass("release");
 
 			// Set the position incase we scrolled too fast
 			$("#pullToRefresh").css({ top: 0 });
@@ -54,7 +60,7 @@ var pullToReload = {
 				var nowTime = new Date(),
 					diff = nowTime.getTime() - pullToReload.timeStarted.getTime();
 
-				// If we have taken less than a second for the release, reload the page
+				// If we have taken less than a half second for the release, reload the page
 				if (diff < 500) {
 					pullToReload.reloadTheWeePageMate();
 				}
@@ -65,8 +71,9 @@ var pullToReload = {
 				pullToReload.reloadTheWeePageMate();
 			}
 
-			// Set the time back to null
+			// Set the time back to null and set release capable back to false
 			pullToReload.timeStarted = null;
+			pullToReload.refreshCapable = false;
 		}
 
 		if (window.scrollY >= 0)
