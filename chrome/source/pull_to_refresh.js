@@ -23,7 +23,7 @@ var pullToReload = {
 		{
 			// Set the text to pull to refresh
 			$("#pullToRefresh #pullyText").html("Pull to refresh");
-			$("#pullToRefresh .icon").removeClass("release");
+			//$("#pullToRefresh .icon").removeClass("release");
 
 			// Set the position of the pull down bar
 			$("#pullToRefresh").css({ top: Math.abs(window.scrollY) - 40 });
@@ -40,7 +40,7 @@ var pullToReload = {
 		{
 			// Set the text and icon to release
 			$("#pullToRefresh #pullyText").html("Release to refresh");
-			$("#pullToRefresh .icon").addClass("release");
+			//$("#pullToRefresh .icon").addClass("release");
 
 			// Set the position incase we scrolled too fast
 			$("#pullToRefresh").css({ top: 0 });
@@ -85,7 +85,13 @@ var pullToReload = {
 	},
 
 	reloadTheWeePageMate: function () {
-		console.log("RELOADING");
+		$("#pullToRefreshReloading").fadeIn(300);
+
+		// Hold for a wee second to see the animation
+		setTimeout(function(){
+			// Do the page reload
+			window.location.reload();
+		}, 750);
 	}
 
 };
