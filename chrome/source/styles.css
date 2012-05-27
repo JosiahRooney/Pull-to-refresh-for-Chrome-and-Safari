@@ -46,6 +46,10 @@
 	-webkit-transition: all .3s ease-in-out;
 }
 
+#pullToRefresh .icon.flippedArrow{
+	background: url('chrome-extension://__MSG_@@extension_id__/whiteArrow-flipped.png');
+}
+
 #pullToRefresh.fixed .icon{
 	-webkit-transition: none;
 }

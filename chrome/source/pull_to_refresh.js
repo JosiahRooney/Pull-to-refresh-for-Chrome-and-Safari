@@ -58,10 +58,10 @@ var pullToReload = {
 			// Set the text to pull to refresh
 			$("#pullToRefresh #pullyText").html("Pull to refresh");
 			
-			if ($("#pullToRefresh .icon").hasClass("release")) {
-				$("#pullToRefresh .icon").removeClass("release");
+			if ($("#pullToRefresh .icon").hasClass("flippedArrow")) {
+				$("#pullToRefresh .icon").removeClass("flippedArrow");
 			}
-
+			
 			// Set the position of the pull down bar
 			$("#pullToRefresh").css({ top: Math.abs(window.scrollY) - 40 });
 
@@ -77,12 +77,12 @@ var pullToReload = {
 		{
 			// Set the text and icon to release
 			$("#pullToRefresh #pullyText").html("Release to refresh");
-
-			if ( ! $("#pullToRefresh .icon").hasClass("release")) {
-				$("#pullToRefresh .icon").addClass("release");
+			
+			if ( ! $("#pullToRefresh .icon").hasClass("flippedArrow")) {
+				$("#pullToRefresh .icon").addClass("flippedArrow");
 
 			}
-
+			
 			// Set the position incase we scrolled too fast
 			$("#pullToRefresh").css({ top: 0 });
 

@@ -9,6 +9,10 @@ Hit up one of the following links to install the precompiled extension package.
 
 ## Changelog
 
+#### Version 1.1.1 (minor)
+
+* Removed nice CSS3 animation of the arrow. This is causing UI glitches in chrome.
+
 #### Version 1.1
 
 * Stopped pull to refresh from working if you scroll up the page quickly, as this isn't desired behaviour.
