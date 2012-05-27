@@ -38,16 +38,13 @@ var pullToReload = {
 		{
 			var nowTime = new Date(),
 				diff = nowTime.getTime() - pullToReload.scrollUpTime.getTime();
-				console.log ("Sitting at 0 time is: " + diff);
 
 			if (diff > 500) {
-				//console.log("DO IT");
 				pullToReload.runScrollCommands();
 			}
 		}
 		else
 		{
-			//console.log("DO IT");
 			pullToReload.runScrollCommands();
 		}
 		
@@ -60,7 +57,10 @@ var pullToReload = {
 		{
 			// Set the text to pull to refresh
 			$("#pullToRefresh #pullyText").html("Pull to refresh");
-			//$("#pullToRefresh .icon").removeClass("release");
+			
+			if ($("#pullToRefresh .icon").hasClass("release")) {
+				$("#pullToRefresh .icon").removeClass("release");
+			}
 
 			// Set the position of the pull down bar
 			$("#pullToRefresh").css({ top: Math.abs(window.scrollY) - 40 });
@@ -77,7 +77,11 @@ var pullToReload = {
 		{
 			// Set the text and icon to release
 			$("#pullToRefresh #pullyText").html("Release to refresh");
-			//$("#pullToRefresh .icon").addClass("release");
+
+			if ( ! $("#pullToRefresh .icon").hasClass("release")) {
+				$("#pullToRefresh .icon").addClass("release");
+
+			}
 
 			// Set the position incase we scrolled too fast
 			$("#pullToRefresh").css({ top: 0 });

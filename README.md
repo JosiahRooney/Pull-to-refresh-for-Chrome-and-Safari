@@ -13,7 +13,6 @@ Hit up one of the following links to install the precompiled extension package.
 
 * Stopped pull to refresh from working if you scroll up the page quickly, as this isn't desired behaviour.
 * Allowed release from pull to refresh if you scroll back down again.
-* Change CSS3 transforms to JS as it was causing UI flickering in chrome.
 
 ## Current support: Google Chrome and Safari on Mac OS X Lion
 Enables pull to refresh functionality on every page in your browser. This is only truly supported on Mac OS X Lion due to the multitouch scrolling capabilities and negative scrolling of the web page.
