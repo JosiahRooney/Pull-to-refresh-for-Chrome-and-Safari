@@ -3,6 +3,7 @@
 var pullToReload = {
 
 	// Instance vars
+	eventCapable: true,
 	refreshCapable: false,
 	timeStarted: null,
 	scrollUpTime: null,
@@ -18,6 +19,42 @@ var pullToReload = {
 
 	monitorScroll: function () {
 
+		// If user is down the page, pull to refresh is not allowed
+		if (window.scrollY > 0) {
+			// reset the time
+			pullToReload.scrollUpTime = null;
+			pullToReload.eventCapable = false;
+		}
+
+		if (window.scrollY === 0) {
+			// Start a timer if it isn't set
+			if (pullToReload.scrollUpTime === null) {
+				pullToReload.scrollUpTime = new Date();
+			}
+		}
+
+		// User is real close, let's check that timer and see if it's long enough to reload the page
+		if (pullToReload.scrollUpTime !== null)
+		{
+			var nowTime = new Date(),
+				diff = nowTime.getTime() - pullToReload.scrollUpTime.getTime();
+				console.log ("Sitting at 0 time is: " + diff);
+
+			if (diff > 500) {
+				//console.log("DO IT");
+				pullToReload.runScrollCommands();
+			}
+		}
+		else
+		{
+			//console.log("DO IT");
+			pullToReload.runScrollCommands();
+		}
+		
+	},
+
+	runScrollCommands: function () {
+		
 		// Scrolling up has occured, but not enough to reload yet
 		if (window.scrollY < 0 && window.scrollY > -40)
 		{
@@ -81,7 +118,7 @@ var pullToReload = {
 			// Set the position to completely hidden again
 			$("#pullToRefresh").css({ top: -40 });
 		}
-		
+
 	},
 
 	reloadTheWeePageMate: function () {
