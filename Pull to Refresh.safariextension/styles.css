@@ -8,7 +8,7 @@
 	margin: 0 30% !important;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	background: -webkit-linear-gradient(bottom, rgba(20,20,20,0.9) 5%, rgba(64,64,64,0.9) 53%);
+	background: -webkit-linear-gradient(bottom, rgba(20,20,20,0.9) 5%, rgba(64,64,64,0.9) 53%) !important;
 	z-index: 10000;
 	/*box-shadow: 0 0 10px rgba(0,0,0,0.2);*/
 }
@@ -76,7 +76,7 @@
 	color: #fff;
 	font-size: 20px !important;
 	line-height: 20px !important;
-	text-align: center;
+	text-align: center !important;
 	text-indent: -10000px;
 	margin: 10px !important;
 	-webkit-animation-name:             rotate;
@@ -94,7 +94,7 @@
 	left: 50%;
 	width: 160px;
 	margin-left: -100px !important;
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.8) !important;
 	border-radius: 5px;
 	padding: 20px !important;
 	min-height: 40px !important;
@@ -104,9 +104,9 @@
 #pullToRefreshReloading .text{
 	width: 120px;
 	display: block;
-	color: #fff;
+	color: #fff !important;
 	line-height: 40px !important;
 	font-size: 16px !important;
-	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
 	text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
 }
