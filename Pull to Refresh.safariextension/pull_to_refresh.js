@@ -1,5 +1,6 @@
+// Do not inject into iframes
+if (window.top === window) {
 // Setup the namespace
-
 var pullToReload = {
 
 	// Instance vars
@@ -135,6 +136,7 @@ var pullToReload = {
 		}, 750);
 	}
 
+}
 };
 
 $(document).ready(pullToReload.init);
