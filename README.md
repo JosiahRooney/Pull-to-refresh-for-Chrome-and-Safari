@@ -4,7 +4,8 @@
 
 Hit up one of the following links to install the precompiled extension package.
 
-* [Google Chrome](https://github.com/weetidy/Pull-to-refresh-for-Chrome-and-Safari/raw/master/chrome/pull_to_refresh.crx) (v1.1)
+* [Google Chrome Web Store](https://chrome.google.com/webstore/detail/mcfofclohialkdlejnbpnifmaflcmoog) (Latest v1.1.1)
+* [Chrome - GitHub Direct](https://github.com/weetidy/Pull-to-refresh-for-Chrome-and-Safari/raw/master/chrome/pull_to_refresh.crx) (Latest v1.1.1)
 * [Safari](https://github.com/weetidy/Pull-to-refresh-for-Chrome-and-Safari/raw/master/Pull%20to%20Refresh.safariextz)
 
 ## Changelog
